@@ -1,7 +1,7 @@
 {
-	"name": "khaos-starter-kit",
+	"name": "khaos-github-market",
 	"private": true,
-	"description": "Khaos Starter Kit",
+	"description": "Khaos Functions for GitHub Market",
 	"scripts": {
 		"test": "ava",
 		"build": "tsc",
@@ -56,5 +56,18 @@
 		"hooks": {
 			"pre-commit": "yarn lint"
 		}
-	}
+	},
+	"version": "1.0.0",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/dev-protocol/khaos-github-market.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/dev-protocol/khaos-github-market/issues"
+	},
+	"homepage": "https://github.com/dev-protocol/khaos-github-market#readme"
 }
