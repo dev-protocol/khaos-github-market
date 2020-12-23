@@ -1,6 +1,6 @@
 import { FunctionAddresses } from '@devprotocol/khaos-core/types'
 
-export const addresses: FunctionAddresses = async ({ network }) =>
-	network === 'mainnet'
-		? '0x1510EA12a30E5c40b406660871b335feA32f29A'
-		: '0x609Fe85Dbb9487d55B5eF50451e20ba2Edc8F4B7'
+export const addresses: FunctionAddresses = async ({ network: net }) =>
+	net === 'mainnet'
+		? '0x3cB902625a2B38929f807f9c841F7aecBbCe7702'
+		: '0xE071bb5861e2352C89992799896D124F1bA5d599'

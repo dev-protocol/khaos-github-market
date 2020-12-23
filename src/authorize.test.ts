@@ -1,22 +1,42 @@
 import test from 'ava'
 import { authorize } from './authorize'
 
-test('Returns true if the passed message and secret are string type', async (t) => {
+test('Successful authentication.', async (t) => {
 	const res = await authorize({
-		message: 'test',
-		secret: 'test',
-		request: {} as any,
-	})
+		message: 'Akira-Taniguchi/cloud_lib',
+		secret: 'f9092e92428595c3e852e2502a0f5e7b3e7c0e35',
+	} as any)
 	t.true(res)
 })
 
-test('Returns false if either the passed message or secret is not string type', async (t) => {
-	const [res1, res2, res3] = await Promise.all([
-		authorize({ message: 1 as any, secret: 'test', request: {} as any }),
-		authorize({ message: 'test', secret: 1 as any, request: {} as any }),
-		authorize({ message: 1 as any, secret: 1 as any, request: {} as any }),
-	])
-	t.false(res1)
-	t.false(res2)
-	t.false(res3)
+test('If the user does not exist, the authentication fails.', async (t) => {
+	const res = await authorize({
+		message: 'user/cloud_lib',
+		secret: 'f9092e92428595c3e852e2502a0f5e7b3e7c0e35',
+	} as any)
+	t.false(res)
+})
+
+test('If the repository does not exist, the authentication fails', async (t) => {
+	const res = await authorize({
+		message: 'Akira-Taniguchi/huubaa',
+		secret: 'f9092e92428595c3e852e2502a0f5e7b3e7c0e35',
+	} as any)
+	t.false(res)
+})
+
+test('If the pat does not exist, the authentication fails', async (t) => {
+	const res = await authorize({
+		message: 'Akira-Taniguchi/cloud_lib',
+		secret: '00000e92428595c3e852e2502a0f5e7b3e7c0CE5',
+	} as any)
+	t.false(res)
+})
+
+test('Successful authentication.(organization repository)', async (t) => {
+	const res = await authorize({
+		message: 'dev-protocol/khaos',
+		secret: 'f9092e92428595c3e852e2502a0f5e7b3e7c0e35',
+	} as any)
+	t.true(res)
 })
