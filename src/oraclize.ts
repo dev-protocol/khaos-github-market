@@ -1,7 +1,7 @@
 import {
 	FunctionOraclizer,
 	FunctionOraclizeResults,
-} from '@devprotocol/khaos-core/types'
+} from '@devprotocol/khaos-core'
 
 export const oraclize: FunctionOraclizer = async ({
 	signatureOptions,

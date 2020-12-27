@@ -1,5 +1,5 @@
 import bent from 'bent'
-import { FunctionAuthorizer } from '@devprotocol/khaos-core/types'
+import { FunctionAuthorizer } from '@devprotocol/khaos-core'
 
 export const authorize: FunctionAuthorizer = async ({ message, secret }) => {
 	const repos = message.split('/')
