@@ -14,9 +14,9 @@ test('If message and githubRepository are the same, it is treated as success.', 
 		transactionhash: 'dummy-transaction-hash',
 	}
 	const res = await oraclize({ signatureOptions, query, network: 'mainnet' })
-	t.is(res.message, 'user/repository')
-	t.is(res.status, 0)
-	t.is(res.statusMessage, 'success')
+	t.is(res!.message, 'user/repository')
+	t.is(res!.status, 0)
+	t.is(res!.statusMessage, 'success')
 })
 
 test('If message and githubRepository are not the same, it is treated as fail.', async (t) => {
@@ -31,9 +31,9 @@ test('If message and githubRepository are not the same, it is treated as fail.',
 		transactionhash: 'dummy-transaction-hash',
 	}
 	const res = await oraclize({ signatureOptions, query, network: 'mainnet' })
-	t.is(res.message, 'user/repository')
-	t.is(res.status, 2)
-	t.is(res.statusMessage, 'error')
+	t.is(res!.message, 'user/repository')
+	t.is(res!.status, 2)
+	t.is(res!.statusMessage, 'error')
 })
 
 test('succeeds if the account of the Query event is the incubator address (mainnet).', async (t) => {
@@ -51,9 +51,9 @@ test('succeeds if the account of the Query event is the incubator address (mainn
 		transactionhash: 'dummy-transaction-hash',
 	}
 	const res = await oraclize({ signatureOptions, query, network: 'mainnet' })
-	t.is(res.message, 'user/repository')
-	t.is(res.status, 0)
-	t.is(res.statusMessage, 'success')
+	t.is(res!.message, 'user/repository')
+	t.is(res!.status, 0)
+	t.is(res!.statusMessage, 'success')
 })
 
 test('if the account of Query event is an incubator address but the repository name is different, it will fail (mainnet).', async (t) => {
@@ -71,9 +71,9 @@ test('if the account of Query event is an incubator address but the repository n
 		transactionhash: 'dummy-transaction-hash',
 	}
 	const res = await oraclize({ signatureOptions, query, network: 'mainnet' })
-	t.is(res.message, 'user/repository')
-	t.is(res.status, 2)
-	t.is(res.statusMessage, 'error')
+	t.is(res!.message, 'user/repository')
+	t.is(res!.status, 2)
+	t.is(res!.statusMessage, 'error')
 })
 
 test('succeeds if the account of the Query event is the incubator address (ropsten).', async (t) => {
@@ -91,9 +91,9 @@ test('succeeds if the account of the Query event is the incubator address (ropst
 		transactionhash: 'dummy-transaction-hash',
 	}
 	const res = await oraclize({ signatureOptions, query, network: 'ropsten' })
-	t.is(res.message, 'user/repository')
-	t.is(res.status, 0)
-	t.is(res.statusMessage, 'success')
+	t.is(res!.message, 'user/repository')
+	t.is(res!.status, 0)
+	t.is(res!.statusMessage, 'success')
 })
 
 test('if the account of Query event is an incubator address but the repository name is different, it will fail (ropsten)..', async (t) => {
@@ -111,7 +111,7 @@ test('if the account of Query event is an incubator address but the repository n
 		transactionhash: 'dummy-transaction-hash',
 	}
 	const res = await oraclize({ signatureOptions, query, network: 'ropsten' })
-	t.is(res.message, 'user/repository')
-	t.is(res.status, 2)
-	t.is(res.statusMessage, 'error')
+	t.is(res!.message, 'user/repository')
+	t.is(res!.status, 2)
+	t.is(res!.statusMessage, 'error')
 })
