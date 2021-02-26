@@ -46,7 +46,7 @@ test('succeeds if the account of the Query event is the incubator address (mainn
 		publicSignature: 'dummy-publicSignature',
 		allData: {
 			githubRepository: 'user/repository',
-			account: '0x0000000000000000000000000000000000000000',
+			account: '0x886f06F5118536589e89A719d3D9E61B330E95B6',
 		} as any,
 		transactionhash: 'dummy-transaction-hash',
 	}
@@ -86,7 +86,7 @@ test('succeeds if the account of the Query event is the incubator address (ropst
 		publicSignature: 'dummy-publicSignature',
 		allData: {
 			githubRepository: 'user/repository',
-			account: '0xCBffAD9738B627Fb9eE3fef691518AAdB98Bc86f',
+			account: '0x1CF5A65D5594C507D797c855D71cF5524B15a639',
 		} as any,
 		transactionhash: 'dummy-transaction-hash',
 	}
