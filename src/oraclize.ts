@@ -2,6 +2,7 @@ import {
 	FunctionOraclizer,
 	FunctionOraclizeResults,
 } from '@devprotocol/khaos-core'
+import { isAuthenticated } from './fetch-github-repositories'
 
 export const oraclize: FunctionOraclizer = async ({
 	signatureOptions,
@@ -14,16 +15,16 @@ export const oraclize: FunctionOraclizer = async ({
 			: '0x1CF5A65D5594C507D797c855D71cF5524B15a639'
 
 	const test1 = query.allData['githubRepository'] === signatureOptions.message
-	// githubRepositoryがjsonにあるかどうかチェックする、incubatorからのアクセスだった場合、そのチェックは行わない
-
-
-
 	const test2 =
 		query.allData['account'] === incubatorAddress
 			? true
 			: query.allData['account'] === signatureOptions.address
+	const test3 =
+		query.allData['account'] === incubatorAddress
+			? true
+			: await isAuthenticated(query.allData['githubRepository'])
 
-	return test1 && test2
+	return test1 && test2 && test3
 		? ({
 			message: signatureOptions.message,
 			status: 0,
