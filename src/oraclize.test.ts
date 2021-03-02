@@ -14,15 +14,9 @@ let isAuthenticated: sinon.SinonStub<[repository: string], Promise<boolean>>
 
 test.before(() => {
 	isAuthenticated = sinon.stub(fetchGithubRepositories, 'isAuthenticated')
-	isAuthenticated
-		.withArgs('user/repository')
-		.resolves(true)
-	isAuthenticated
-		.withArgs('hoge/huga')
-		.resolves(false)
-
+	isAuthenticated.withArgs('user/repository').resolves(true)
+	isAuthenticated.withArgs('hoge/huga').resolves(false)
 })
-
 
 //success
 test('same repository, same account, authenticated repositories.(not incubator, mainnet)', async (t) => {
@@ -67,7 +61,10 @@ test('same repository, different account, not authenticated repositories.(incuba
 	}
 	const query: QueryData = {
 		publicSignature: 'dummy-publicSignature',
-		allData: { githubRepository: 'hogehoge/hugahuga', account: '0x886f06F5118536589e89A719d3D9E61B330E95B6' } as any,
+		allData: {
+			githubRepository: 'hogehoge/hugahuga',
+			account: '0x886f06F5118536589e89A719d3D9E61B330E95B6',
+		} as any,
 		transactionhash: 'dummy-transaction-hash',
 	}
 	const res = await oraclize({ signatureOptions, query, network: 'mainnet' })
@@ -84,7 +81,10 @@ test('same repository, same account, authenticated repositories.(incubator, rops
 	}
 	const query: QueryData = {
 		publicSignature: 'dummy-publicSignature',
-		allData: { githubRepository: 'user/repository', account: '0x1CF5A65D5594C507D797c855D71cF5524B15a639' } as any,
+		allData: {
+			githubRepository: 'user/repository',
+			account: '0x1CF5A65D5594C507D797c855D71cF5524B15a639',
+		} as any,
 		transactionhash: 'dummy-transaction-hash',
 	}
 	const res = await oraclize({ signatureOptions, query, network: 'ropsten' })
@@ -153,7 +153,10 @@ test('different repository, same account, authenticated repositories.(incubator,
 	}
 	const query: QueryData = {
 		publicSignature: 'dummy-publicSignature',
-		allData: { githubRepository: 'user/repository', account: '0x886f06F5118536589e89A719d3D9E61B330E95B6' } as any,
+		allData: {
+			githubRepository: 'user/repository',
+			account: '0x886f06F5118536589e89A719d3D9E61B330E95B6',
+		} as any,
 		transactionhash: 'dummy-transaction-hash',
 	}
 	const res = await oraclize({ signatureOptions, query, network: 'mainnet' })
@@ -170,7 +173,10 @@ test('different repository, same account, authenticated repositories.(incubator,
 	}
 	const query: QueryData = {
 		publicSignature: 'dummy-publicSignature',
-		allData: { githubRepository: 'user/repository', account: '0x1CF5A65D5594C507D797c855D71cF5524B15a639' } as any,
+		allData: {
+			githubRepository: 'user/repository',
+			account: '0x1CF5A65D5594C507D797c855D71cF5524B15a639',
+		} as any,
 		transactionhash: 'dummy-transaction-hash',
 	}
 	const res = await oraclize({ signatureOptions, query, network: 'ropsten' })
