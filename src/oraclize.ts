@@ -14,6 +14,10 @@ export const oraclize: FunctionOraclizer = async ({
 			: '0x1CF5A65D5594C507D797c855D71cF5524B15a639'
 
 	const test1 = query.allData['githubRepository'] === signatureOptions.message
+	// githubRepositoryがjsonにあるかどうかチェックする、incubatorからのアクセスだった場合、そのチェックは行わない
+
+
+
 	const test2 =
 		query.allData['account'] === incubatorAddress
 			? true
