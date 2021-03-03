@@ -2,6 +2,7 @@ import {
 	FunctionOraclizer,
 	FunctionOraclizeResults,
 } from '@devprotocol/khaos-core'
+import { isAuthenticated } from './fetch-github-repositories'
 
 export const oraclize: FunctionOraclizer = async ({
 	signatureOptions,
@@ -18,16 +19,20 @@ export const oraclize: FunctionOraclizer = async ({
 		query.allData['account'] === incubatorAddress
 			? true
 			: query.allData['account'] === signatureOptions.address
+	const test3 =
+		query.allData['account'] === incubatorAddress
+			? true
+			: await isAuthenticated(query.allData['githubRepository'])
 
-	return test1 && test2
+	return test1 && test2 && test3
 		? ({
-			message: signatureOptions.message,
-			status: 0,
-			statusMessage: 'success',
-		} as FunctionOraclizeResults)
+				message: signatureOptions.message,
+				status: 0,
+				statusMessage: 'success',
+		  } as FunctionOraclizeResults)
 		: ({
-			message: signatureOptions.message,
-			status: 2,
-			statusMessage: 'error',
-		} as FunctionOraclizeResults)
+				message: signatureOptions.message,
+				status: 2,
+				statusMessage: 'error',
+		  } as FunctionOraclizeResults)
 }
