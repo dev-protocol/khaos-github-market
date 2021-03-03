@@ -1,8 +1,22 @@
+/* eslint-disable functional/no-let */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable functional/prefer-readonly-type */
 import test from 'ava'
+import sinon from 'sinon'
 import { oraclize } from './oraclize'
 import { PublicSignatureOptions, QueryData } from '@devprotocol/khaos-core'
+import * as fetchGithubRepositories from './fetch-github-repositories'
 
-test('If message and githubRepository are the same, it is treated as success.', async (t) => {
+let isAuthenticated: sinon.SinonStub<[repository: string], Promise<boolean>>
+
+test.before(() => {
+	isAuthenticated = sinon.stub(fetchGithubRepositories, 'isAuthenticated')
+	isAuthenticated.withArgs('user/repository').resolves(true)
+	isAuthenticated.withArgs('hoge/huga').resolves(false)
+})
+
+//success
+test('same repository, same account, authenticated repositories.(not incubator, mainnet)', async (t) => {
 	const signatureOptions: PublicSignatureOptions = {
 		message: 'user/repository',
 		id: 'github-market',
@@ -19,7 +33,7 @@ test('If message and githubRepository are the same, it is treated as success.', 
 	t.is(res!.statusMessage, 'success')
 })
 
-test('If message and githubRepository are not the same, it is treated as fail.', async (t) => {
+test('same repository, same account, authenticated repositories.(not incubator, ropsten)', async (t) => {
 	const signatureOptions: PublicSignatureOptions = {
 		message: 'user/repository',
 		id: 'github-market',
@@ -27,56 +41,36 @@ test('If message and githubRepository are not the same, it is treated as fail.',
 	}
 	const query: QueryData = {
 		publicSignature: 'dummy-publicSignature',
-		allData: { githubRepository: 'hoge/hura' } as any,
+		allData: { githubRepository: 'user/repository', account: '0x1234' } as any,
 		transactionhash: 'dummy-transaction-hash',
 	}
-	const res = await oraclize({ signatureOptions, query, network: 'mainnet' })
-	t.is(res!.message, 'user/repository')
-	t.is(res!.status, 2)
-	t.is(res!.statusMessage, 'error')
-})
-
-test('succeeds if the account of the Query event is the incubator address (mainnet).', async (t) => {
-	const signatureOptions: PublicSignatureOptions = {
-		message: 'user/repository',
-		id: 'github-market',
-		address: '0x1234',
-	}
-	const query: QueryData = {
-		publicSignature: 'dummy-publicSignature',
-		allData: {
-			githubRepository: 'user/repository',
-			account: '0x886f06F5118536589e89A719d3D9E61B330E95B6',
-		} as any,
-		transactionhash: 'dummy-transaction-hash',
-	}
-	const res = await oraclize({ signatureOptions, query, network: 'mainnet' })
+	const res = await oraclize({ signatureOptions, query, network: 'ropsten' })
 	t.is(res!.message, 'user/repository')
 	t.is(res!.status, 0)
 	t.is(res!.statusMessage, 'success')
 })
 
-test('if the account of Query event is an incubator address but the repository name is different, it will fail (mainnet).', async (t) => {
+test('same repository, different account, not authenticated repositories.(incubator, mainnet)', async (t) => {
 	const signatureOptions: PublicSignatureOptions = {
-		message: 'user/repository',
+		message: 'hogehoge/hugahuga',
 		id: 'github-market',
 		address: '0x1234',
 	}
 	const query: QueryData = {
 		publicSignature: 'dummy-publicSignature',
 		allData: {
-			githubRepository: 'huga/hoge',
-			account: 'incubator address',
+			githubRepository: 'hogehoge/hugahuga',
+			account: '0x886f06F5118536589e89A719d3D9E61B330E95B6',
 		} as any,
 		transactionhash: 'dummy-transaction-hash',
 	}
 	const res = await oraclize({ signatureOptions, query, network: 'mainnet' })
-	t.is(res!.message, 'user/repository')
-	t.is(res!.status, 2)
-	t.is(res!.statusMessage, 'error')
+	t.is(res!.message, 'hogehoge/hugahuga')
+	t.is(res!.status, 0)
+	t.is(res!.statusMessage, 'success')
 })
 
-test('succeeds if the account of the Query event is the incubator address (ropsten).', async (t) => {
+test('same repository, same account, authenticated repositories.(incubator, ropsten)', async (t) => {
 	const signatureOptions: PublicSignatureOptions = {
 		message: 'user/repository',
 		id: 'github-market',
@@ -96,7 +90,25 @@ test('succeeds if the account of the Query event is the incubator address (ropst
 	t.is(res!.statusMessage, 'success')
 })
 
-test('if the account of Query event is an incubator address but the repository name is different, it will fail (ropsten)..', async (t) => {
+// failed
+test('different repository, same account, authenticated repositories.(not incubator, mainnet)', async (t) => {
+	const signatureOptions: PublicSignatureOptions = {
+		message: 'hoge/huga',
+		id: 'github-market',
+		address: '0x1234',
+	}
+	const query: QueryData = {
+		publicSignature: 'dummy-publicSignature',
+		allData: { githubRepository: 'user/repository', account: '0x1234' } as any,
+		transactionhash: 'dummy-transaction-hash',
+	}
+	const res = await oraclize({ signatureOptions, query, network: 'mainnet' })
+	t.is(res!.message, 'hoge/huga')
+	t.is(res!.status, 2)
+	t.is(res!.statusMessage, 'error')
+})
+
+test('same repository, different account, authenticated repositories.(not incubator, mainnet)', async (t) => {
 	const signatureOptions: PublicSignatureOptions = {
 		message: 'user/repository',
 		id: 'github-market',
@@ -104,14 +116,72 @@ test('if the account of Query event is an incubator address but the repository n
 	}
 	const query: QueryData = {
 		publicSignature: 'dummy-publicSignature',
+		allData: { githubRepository: 'user/repository', account: '0x12345' } as any,
+		transactionhash: 'dummy-transaction-hash',
+	}
+	const res = await oraclize({ signatureOptions, query, network: 'mainnet' })
+	t.is(res!.message, 'user/repository')
+	t.is(res!.status, 2)
+	t.is(res!.statusMessage, 'error')
+})
+
+test('same repository, same account, not authenticated repositories.(not incubator, mainnet)', async (t) => {
+	const signatureOptions: PublicSignatureOptions = {
+		message: 'hoge/huga',
+		id: 'github-market',
+		address: '0x1234',
+	}
+	const query: QueryData = {
+		publicSignature: 'dummy-publicSignature',
+		allData: { githubRepository: 'hoge/huga', account: '0x1234' } as any,
+		transactionhash: 'dummy-transaction-hash',
+	}
+	const res = await oraclize({ signatureOptions, query, network: 'mainnet' })
+	t.is(res!.message, 'hoge/huga')
+	t.is(res!.status, 2)
+	t.is(res!.statusMessage, 'error')
+})
+
+test('different repository, same account, authenticated repositories.(incubator, mainnet)', async (t) => {
+	const signatureOptions: PublicSignatureOptions = {
+		message: 'huge/hoge',
+		id: 'github-market',
+		address: '0x1234',
+	}
+	const query: QueryData = {
+		publicSignature: 'dummy-publicSignature',
 		allData: {
-			githubRepository: 'huhuhu/hahaha',
-			account: 'ropsten incubator address',
+			githubRepository: 'user/repository',
+			account: '0x886f06F5118536589e89A719d3D9E61B330E95B6',
+		} as any,
+		transactionhash: 'dummy-transaction-hash',
+	}
+	const res = await oraclize({ signatureOptions, query, network: 'mainnet' })
+	t.is(res!.message, 'huge/hoge')
+	t.is(res!.status, 2)
+	t.is(res!.statusMessage, 'error')
+})
+
+test('different repository, same account, authenticated repositories.(incubator, ropsten)', async (t) => {
+	const signatureOptions: PublicSignatureOptions = {
+		message: 'huge/hoge',
+		id: 'github-market',
+		address: '0x1234',
+	}
+	const query: QueryData = {
+		publicSignature: 'dummy-publicSignature',
+		allData: {
+			githubRepository: 'user/repository',
+			account: '0x1CF5A65D5594C507D797c855D71cF5524B15a639',
 		} as any,
 		transactionhash: 'dummy-transaction-hash',
 	}
 	const res = await oraclize({ signatureOptions, query, network: 'ropsten' })
-	t.is(res!.message, 'user/repository')
+	t.is(res!.message, 'huge/hoge')
 	t.is(res!.status, 2)
 	t.is(res!.statusMessage, 'error')
+})
+
+test.after(() => {
+	isAuthenticated.restore()
 })
