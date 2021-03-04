@@ -60,7 +60,7 @@ test('same repository, different account, not authenticated repositories.(incuba
 		publicSignature: 'dummy-publicSignature',
 		allData: {
 			githubRepository: 'hogehoge/hugahuga',
-			account: '0x02d107567020bCE1Eb524D80C44f899Fa9993E5f',
+			account: '0x7f1b8c30832ca3ABC6326A58903A3a47ade00019',
 		} as any,
 		transactionhash: 'dummy-transaction-hash',
 	}
