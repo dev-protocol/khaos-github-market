@@ -60,7 +60,7 @@ test('same repository, different account, not authenticated repositories.(incuba
 		publicSignature: 'dummy-publicSignature',
 		allData: {
 			githubRepository: 'hogehoge/hugahuga',
-			account: '0x886f06F5118536589e89A719d3D9E61B330E95B6',
+			account: '0x02d107567020bCE1Eb524D80C44f899Fa9993E5f',
 		} as any,
 		transactionhash: 'dummy-transaction-hash',
 	}
@@ -80,7 +80,7 @@ test('same repository, same account, authenticated repositories.(incubator, rops
 		publicSignature: 'dummy-publicSignature',
 		allData: {
 			githubRepository: 'user/repository',
-			account: '0x1CF5A65D5594C507D797c855D71cF5524B15a639',
+			account: '0x554c3f103894901f4ea0c4c955EB0E6fB347b5A6',
 		} as any,
 		transactionhash: 'dummy-transaction-hash',
 	}
@@ -152,7 +152,7 @@ test('different repository, same account, authenticated repositories.(incubator,
 		publicSignature: 'dummy-publicSignature',
 		allData: {
 			githubRepository: 'user/repository',
-			account: '0x886f06F5118536589e89A719d3D9E61B330E95B6',
+			account: '0x02d107567020bCE1Eb524D80C44f899Fa9993E5f',
 		} as any,
 		transactionhash: 'dummy-transaction-hash',
 	}
@@ -172,7 +172,7 @@ test('different repository, same account, authenticated repositories.(incubator,
 		publicSignature: 'dummy-publicSignature',
 		allData: {
 			githubRepository: 'user/repository',
-			account: '0x1CF5A65D5594C507D797c855D71cF5524B15a639',
+			account: '0x554c3f103894901f4ea0c4c955EB0E6fB347b5A6',
 		} as any,
 		transactionhash: 'dummy-transaction-hash',
 	}
