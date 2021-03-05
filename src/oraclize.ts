@@ -12,7 +12,7 @@ export const oraclize: FunctionOraclizer = async ({
 	const incubatorAddress =
 		network === 'mainnet'
 			? '0x7f1b8c30832ca3ABC6326A58903A3a47ade00019'
-			: '0x554c3f103894901f4ea0c4c955EB0E6fB347b5A6'
+			: '0x59D4b114866920eD57FfAdF14A9E84a11e41217B'
 
 	const test1 = query.allData['githubRepository'] === signatureOptions.message
 	const test2 =
@@ -26,13 +26,13 @@ export const oraclize: FunctionOraclizer = async ({
 
 	return test1 && test2 && test3
 		? ({
-				message: signatureOptions.message,
-				status: 0,
-				statusMessage: 'success',
-		  } as FunctionOraclizeResults)
+			message: signatureOptions.message,
+			status: 0,
+			statusMessage: 'success',
+		} as FunctionOraclizeResults)
 		: ({
-				message: signatureOptions.message,
-				status: 2,
-				statusMessage: 'error',
-		  } as FunctionOraclizeResults)
+			message: signatureOptions.message,
+			status: 2,
+			statusMessage: 'error',
+		} as FunctionOraclizeResults)
 }
