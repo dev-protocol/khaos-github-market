@@ -1,17 +1,19 @@
 import bent from 'bent'
-import { always } from 'ramda'
 
 const URL =
 	'https://raw.githubusercontent.com/dev-protocol/invitation-registry/main/data/github-repositories.json'
 
-const fetchGithubRepositories = always(
+const fetchGithubRepositories = (refreshKey: string):Promise<Record<string, boolean>> =>
 	(async (fetcher) =>
-		fetcher(`${URL}?${Math.random()}`).then(
+		fetcher(`${URL}?${refreshKey}`, undefined, {
+			'cache-control': 'no-cache',
+			'pragma': 'no-cache'
+		}).then(
 			(r) => (r as unknown) as Record<string, boolean>
 		))(bent('json'))
-)
+
 
 export const isAuthenticated = async (repository: string): Promise<boolean> => {
-	const res = await fetchGithubRepositories()
+	const res = await fetchGithubRepositories(`${Math.random()}`)
 	return Boolean(res[repository])
 }
