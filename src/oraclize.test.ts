@@ -105,7 +105,7 @@ test('different repository, same account, authenticated repositories.(not incuba
 	const res = await oraclize({ signatureOptions, query, network: 'mainnet' })
 	t.is(res!.message, 'hoge/huga')
 	t.is(res!.status, 2)
-	t.is(res!.statusMessage, 'error')
+	t.is(res!.statusMessage, 'error: test1 = false, test2 = true, test3 = true')
 })
 
 test('same repository, different account, authenticated repositories.(not incubator, mainnet)', async (t) => {
@@ -122,7 +122,7 @@ test('same repository, different account, authenticated repositories.(not incuba
 	const res = await oraclize({ signatureOptions, query, network: 'mainnet' })
 	t.is(res!.message, 'user/repository')
 	t.is(res!.status, 2)
-	t.is(res!.statusMessage, 'error')
+	t.is(res!.statusMessage, 'error: test1 = true, test2 = false, test3 = true')
 })
 
 test('same repository, same account, not authenticated repositories.(not incubator, mainnet)', async (t) => {
@@ -139,7 +139,7 @@ test('same repository, same account, not authenticated repositories.(not incubat
 	const res = await oraclize({ signatureOptions, query, network: 'mainnet' })
 	t.is(res!.message, 'hoge/huga')
 	t.is(res!.status, 2)
-	t.is(res!.statusMessage, 'error')
+	t.is(res!.statusMessage, 'error: test1 = true, test2 = true, test3 = false')
 })
 
 test('different repository, same account, authenticated repositories.(incubator, mainnet)', async (t) => {
@@ -159,7 +159,7 @@ test('different repository, same account, authenticated repositories.(incubator,
 	const res = await oraclize({ signatureOptions, query, network: 'mainnet' })
 	t.is(res!.message, 'huge/hoge')
 	t.is(res!.status, 2)
-	t.is(res!.statusMessage, 'error')
+	t.is(res!.statusMessage, 'error: test1 = false, test2 = true, test3 = true')
 })
 
 test('different repository, same account, authenticated repositories.(incubator, ropsten)', async (t) => {
@@ -179,7 +179,7 @@ test('different repository, same account, authenticated repositories.(incubator,
 	const res = await oraclize({ signatureOptions, query, network: 'ropsten' })
 	t.is(res!.message, 'huge/hoge')
 	t.is(res!.status, 2)
-	t.is(res!.statusMessage, 'error')
+	t.is(res!.statusMessage, 'error: test1 = false, test2 = true, test3 = true')
 })
 
 test.after(() => {

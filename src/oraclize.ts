@@ -24,15 +24,18 @@ export const oraclize: FunctionOraclizer = async ({
 			? true
 			: await isAuthenticated(query.allData['githubRepository'])
 
+	// eslint-disable-next-line functional/no-expression-statement
+	console.log('github-market', { signatureOptions, query, network })
+
 	return test1 && test2 && test3
 		? ({
-			message: signatureOptions.message,
-			status: 0,
-			statusMessage: 'success',
-		} as FunctionOraclizeResults)
+				message: signatureOptions.message,
+				status: 0,
+				statusMessage: 'success',
+		  } as FunctionOraclizeResults)
 		: ({
-			message: signatureOptions.message,
-			status: 2,
-			statusMessage: 'error',
-		} as FunctionOraclizeResults)
+				message: signatureOptions.message,
+				status: 2,
+				statusMessage: `error: test1 = ${test1}, test2 = ${test2}, test3 = ${test3}`,
+		  } as FunctionOraclizeResults)
 }
