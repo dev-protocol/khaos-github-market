@@ -80,7 +80,7 @@ test('same repository, same account, authenticated repositories.(incubator, rops
 		publicSignature: 'dummy-publicSignature',
 		allData: {
 			githubRepository: 'user/repository',
-			account: '0x59D4b114866920eD57FfAdF14A9E84a11e41217B',
+			account: '0xca98de1774F13090014660fb80367Fde970C4A72',
 		} as any,
 		transactionhash: 'dummy-transaction-hash',
 	}
@@ -172,7 +172,7 @@ test('different repository, same account, authenticated repositories.(incubator,
 		publicSignature: 'dummy-publicSignature',
 		allData: {
 			githubRepository: 'user/repository',
-			account: '0x59D4b114866920eD57FfAdF14A9E84a11e41217B',
+			account: '0xca98de1774F13090014660fb80367Fde970C4A72',
 		} as any,
 		transactionhash: 'dummy-transaction-hash',
 	}
