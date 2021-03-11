@@ -182,6 +182,21 @@ test('different repository, same account, authenticated repositories.(incubator,
 	t.is(res!.statusMessage, 'error: test1 = false, test2 = true, test3 = true')
 })
 
+test('returns `empty` as the message property when the passed signatureOptions is undefined', async (t) => {
+	const query: QueryData = {
+		publicSignature: 'dummy-publicSignature',
+		allData: {
+			githubRepository: 'user/repository',
+			account: '0xca98de1774F13090014660fb80367Fde970C4A72',
+		} as any,
+		transactionhash: 'dummy-transaction-hash',
+	}
+	const res = await oraclize({ query, network: 'ropsten' })
+	t.is(res!.message, 'empty')
+	t.is(res!.status, 2)
+	t.is(res!.statusMessage, 'error: test1 = false, test2 = true, test3 = true')
+})
+
 test.after(() => {
 	isAuthenticated.restore()
 })
