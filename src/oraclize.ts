@@ -19,7 +19,7 @@ export const oraclize: FunctionOraclizer = async ({
 			? true
 			: lcAccount === signatureOptions?.address.toLowerCase()
 	const test3 =
-		lcAccount === lcIncubatorAddress
+		lcAccount === lcIncubatorAddress || network === 'ropsten'
 			? true
 			: await isAuthenticated(query.allData['githubRepository'])
 
