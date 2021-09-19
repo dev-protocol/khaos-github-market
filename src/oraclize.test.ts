@@ -197,6 +197,23 @@ test('returns `empty` as the message property when the passed signatureOptions i
 	t.is(res!.statusMessage, 'error: test1 = false, test2 = true, test3 = true')
 })
 
+test('same repository, same account, not authenticated repositories, network ropsten.(not incubator, mainnet)', async (t) => {
+	const signatureOptions: PublicSignatureOptions = {
+		message: 'hoge/huga',
+		id: 'github-market',
+		address: '0x1234',
+	}
+	const query: QueryData = {
+		publicSignature: 'dummy-publicSignature',
+		allData: { githubRepository: 'hoge/huga', account: '0x1234' } as any,
+		transactionhash: 'dummy-transaction-hash',
+	}
+	const res = await oraclize({ signatureOptions, query, network: 'ropsten' })
+	t.is(res!.message, 'hoge/huga')
+	t.is(res!.status, 0)
+	t.is(res!.statusMessage, 'success')
+})
+
 test.after(() => {
 	isAuthenticated.restore()
 })
