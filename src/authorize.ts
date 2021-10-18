@@ -53,6 +53,6 @@ async function post(
 			'User-Agent': 'https://github.com/dev-protocol/khaos',
 		}
 	)
-		.then((res) => (res as unknown) as GraphQLResponse)
+		.then((res) => res as unknown as GraphQLResponse)
 		.catch((err: Error) => err)
 }

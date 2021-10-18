@@ -10,7 +10,7 @@ const fetchGithubRepositories = (
 		fetcher(`${URL}?${refreshKey}`, undefined, {
 			'cache-control': 'no-cache',
 			pragma: 'no-cache',
-		}).then((r) => (r as unknown) as Record<string, boolean>))(bent('json'))
+		}).then((r) => r as unknown as Record<string, boolean>))(bent('json'))
 
 export const isAuthenticated = async (repository: string): Promise<boolean> => {
 	const res = await fetchGithubRepositories(`${Math.random()}`)

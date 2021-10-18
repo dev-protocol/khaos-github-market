@@ -9,8 +9,8 @@ export const oraclize: FunctionOraclizer = async ({
 	const incubatorAddress =
 		network === 'mainnet'
 			? '0x7f1b8c30832ca3ABC6326A58903A3a47ade00019'
-			: '0xca98de1774F13090014660fb80367Fde970C4A72'
-	const lcIncubatorAddress = incubatorAddress.toLowerCase()
+			: undefined
+	const lcIncubatorAddress = incubatorAddress?.toLowerCase()
 	const lcAccount = String(query.allData['account']).toLowerCase()
 
 	const test1 = query.allData['githubRepository'] === signatureOptions?.message
@@ -19,7 +19,7 @@ export const oraclize: FunctionOraclizer = async ({
 			? true
 			: lcAccount === signatureOptions?.address.toLowerCase()
 	const test3 =
-		lcAccount === lcIncubatorAddress || network === 'ropsten'
+		lcAccount === lcIncubatorAddress || network !== 'mainnet'
 			? true
 			: await isAuthenticated(query.allData['githubRepository'])
 
