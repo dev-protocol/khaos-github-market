@@ -13,10 +13,10 @@ test('Returns ropsten address when the passed network is ropsten', async (t) => 
 
 test('Returns arbitrum rinkeby address when the passed network is arbitrum-rinkeby', async (t) => {
 	const res = await addresses({ network: 'arbitrum-rinkeby' })
-	t.is(res, '')
+	t.is(res, '0x377B7d9C2DA6eD293EA62d2bCdA1cF54009751F8')
 })
 
-test('Returns undefined when the passed network is arbitrum-one', async (t) => {
+test('Returns empty string when the passed network is arbitrum-one', async (t) => {
 	const res = await addresses({ network: 'arbitrum-one' })
-	t.is(res, undefined)
+	t.is(res, '')
 })
