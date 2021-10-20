@@ -6,5 +6,7 @@ export const addresses: FunctionAddresses = async ({ network: net }) =>
 		: net === 'ropsten'
 		? '0xE071bb5861e2352C89992799896D124F1bA5d599'
 		: net === 'arbitrum-rinkeby'
+		? '0x377B7d9C2DA6eD293EA62d2bCdA1cF54009751F8'
+		: net === 'arbitrum-one'
 		? ''
 		: undefined
