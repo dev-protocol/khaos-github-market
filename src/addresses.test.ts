@@ -18,5 +18,5 @@ test('Returns arbitrum rinkeby address when the passed network is arbitrum-rinke
 
 test('Returns empty string when the passed network is arbitrum-one', async (t) => {
 	const res = await addresses({ network: 'arbitrum-one' })
-	t.is(res, '')
+	t.is(res, '0xE642B3a60F6Ef0e6dACF2388725eb487059E7739')
 })
