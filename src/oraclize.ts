@@ -6,22 +6,14 @@ export const oraclize: FunctionOraclizer = async ({
 	query,
 	network,
 }) => {
-	const incubatorAddress =
-		network === 'mainnet'
-			? '0x7f1b8c30832ca3ABC6326A58903A3a47ade00019'
-			: undefined
-	const lcIncubatorAddress = incubatorAddress?.toLowerCase()
 	const lcAccount = String(query.allData['account']).toLowerCase()
 
 	const test1 = query.allData['githubRepository'] === signatureOptions?.message
-	const test2 =
-		lcAccount === lcIncubatorAddress
-			? true
-			: lcAccount === signatureOptions?.address.toLowerCase()
+	const test2 = lcAccount === signatureOptions?.address.toLowerCase()
 	const test3 =
-		lcAccount === lcIncubatorAddress || network !== 'mainnet'
-			? true
-			: await isAuthenticated(query.allData['githubRepository'])
+		network === 'mainnet'
+			? await isAuthenticated(query.allData['githubRepository'])
+			: true
 
 	return signatureOptions?.message && test1 && test2 && test3
 		? {
