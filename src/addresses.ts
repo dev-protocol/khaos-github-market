@@ -9,4 +9,6 @@ export const addresses: FunctionAddresses = async ({ network: net }) =>
 		? '0x377B7d9C2DA6eD293EA62d2bCdA1cF54009751F8'
 		: net === 'arbitrum-one'
 		? '0xE642B3a60F6Ef0e6dACF2388725eb487059E7739'
+		: net === 'polygon-mainnet'
+		? '0x2445C5a8939d3563A29E8E5E8dc11f2BF02Ea374'
 		: undefined

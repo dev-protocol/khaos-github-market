@@ -20,3 +20,8 @@ test('Returns empty string when the passed network is arbitrum-one', async (t) =
 	const res = await addresses({ network: 'arbitrum-one' })
 	t.is(res, '0xE642B3a60F6Ef0e6dACF2388725eb487059E7739')
 })
+
+test('Returns polygon mainnet address when the passed network is polygon-mainnet', async (t) => {
+	const res = await addresses({ network: 'polygon-mainnet' })
+	t.is(res, '0x2445C5a8939d3563A29E8E5E8dc11f2BF02Ea374')
+})
