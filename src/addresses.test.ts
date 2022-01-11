@@ -11,7 +11,8 @@ test('Returns mainnet address when the passed network is mainnet', async (t) => 
 })
 
 test('Returns arbitrum rinkeby address when the passed network is arbitrum-rinkeby', async (t) => {
-	process.env[`KHAOS_ARBITRUM_RINKEBY_GITHUB_MARKET_L2`] = '0xhogehoge1234567890'
+	process.env[`KHAOS_ARBITRUM_RINKEBY_GITHUB_MARKET_L2`] =
+		'0xhogehoge1234567890'
 	const res = await addresses({ network: 'arbitrum-rinkeby' })
 	t.is(res, '0xhogehoge1234567890')
 	process.env[`KHAOS_ARBITRUM_RINKEBY_GITHUB_MARKET_L2`] = undefined
