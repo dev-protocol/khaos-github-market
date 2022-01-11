@@ -25,3 +25,8 @@ test('Returns polygon mainnet address when the passed network is polygon-mainnet
 	const res = await addresses({ network: 'polygon-mainnet' })
 	t.is(res, '0x2445C5a8939d3563A29E8E5E8dc11f2BF02Ea374')
 })
+
+test('Returns polygon mainnet address when the passed network is polygon-mumbai', async (t) => {
+	const res = await addresses({ network: 'polygon-mumbai' })
+	t.is(res, '0x1B0e6887a30f135dD71C61C7C3dc5cFeD09610FB')
+})
