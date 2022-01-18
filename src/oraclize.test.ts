@@ -17,16 +17,10 @@ test('Returns success when the assert is passed; same repo, same account', async
 		allData: { githubRepository: 'user/repository', account: '0x1234' } as any,
 		transactionhash: 'dummy-transaction-hash',
 	}
-	const data = await Promise.all([
-		oraclize({ signatureOptions, query, network: 'ropsten' }),
-		oraclize({ signatureOptions, query, network: 'arbitrum-rinkeby' }),
-		oraclize({ signatureOptions, query, network: 'arbitrum-one' }),
-	])
-	data.forEach((res) => {
-		t.is(res!.message, 'user/repository')
-		t.is(res!.status, 0)
-		t.is(res!.statusMessage, 'success')
-	})
+	const data = await oraclize({ signatureOptions, query, network: 'mainnet' })
+	t.is(data!.message, 'user/repository')
+	t.is(data!.status, 0)
+	t.is(data!.statusMessage, 'success')
 })
 
 test('Returns failure when the assert is not passed; different repo, same account', async (t) => {
@@ -40,16 +34,10 @@ test('Returns failure when the assert is not passed; different repo, same accoun
 		allData: { githubRepository: 'user/repository', account: '0x1234' } as any,
 		transactionhash: 'dummy-transaction-hash',
 	}
-	const data = await Promise.all([
-		oraclize({ signatureOptions, query, network: 'ropsten' }),
-		oraclize({ signatureOptions, query, network: 'arbitrum-rinkeby' }),
-		oraclize({ signatureOptions, query, network: 'arbitrum-one' }),
-	])
-	data.forEach((res) => {
-		t.is(res!.message, 'user/REPOSITORY')
-		t.is(res!.status, 2)
-		t.is(res!.statusMessage, 'error: test1 = false, test2 = true, test3 = true')
-	})
+	const data = await oraclize({ signatureOptions, query, network: 'ropsten' })
+	t.is(data!.message, 'user/REPOSITORY')
+	t.is(data!.status, 2)
+	t.is(data!.statusMessage, 'error: test1 = false, test2 = true')
 })
 
 test('Returns failure when the assert is not passed; same repo, different account', async (t) => {
@@ -63,16 +51,14 @@ test('Returns failure when the assert is not passed; same repo, different accoun
 		allData: { githubRepository: 'user/repository', account: '0x1234' } as any,
 		transactionhash: 'dummy-transaction-hash',
 	}
-	const data = await Promise.all([
-		oraclize({ signatureOptions, query, network: 'ropsten' }),
-		oraclize({ signatureOptions, query, network: 'arbitrum-rinkeby' }),
-		oraclize({ signatureOptions, query, network: 'arbitrum-one' }),
-	])
-	data.forEach((res) => {
-		t.is(res!.message, 'user/repository')
-		t.is(res!.status, 2)
-		t.is(res!.statusMessage, 'error: test1 = true, test2 = false, test3 = true')
+	const data = await oraclize({
+		signatureOptions,
+		query,
+		network: 'arbitrum-rinkeby',
 	})
+	t.is(data!.message, 'user/repository')
+	t.is(data!.status, 2)
+	t.is(data!.statusMessage, 'error: test1 = true, test2 = false')
 })
 
 test('Returns failure when the assert is not passed; different repo, different account', async (t) => {
@@ -86,17 +72,12 @@ test('Returns failure when the assert is not passed; different repo, different a
 		allData: { githubRepository: 'user/repository', account: '0x1234' } as any,
 		transactionhash: 'dummy-transaction-hash',
 	}
-	const data = await Promise.all([
-		oraclize({ signatureOptions, query, network: 'ropsten' }),
-		oraclize({ signatureOptions, query, network: 'arbitrum-rinkeby' }),
-		oraclize({ signatureOptions, query, network: 'arbitrum-one' }),
-	])
-	data.forEach((res) => {
-		t.is(res!.message, 'user/REPOSITORY')
-		t.is(res!.status, 2)
-		t.is(
-			res!.statusMessage,
-			'error: test1 = false, test2 = false, test3 = true'
-		)
+	const data = await oraclize({
+		signatureOptions,
+		query,
+		network: 'arbitrum-one',
 	})
+	t.is(data!.message, 'user/REPOSITORY')
+	t.is(data!.status, 2)
+	t.is(data!.statusMessage, 'error: test1 = false, test2 = false')
 })
