@@ -1567,10 +1567,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/sinon@10.0.9":
-  version "10.0.9"
-  resolved "https://registry.yarnpkg.com/@types/sinon/-/sinon-10.0.9.tgz#6f761210811ac54c18ad56a2ab95bf3350b18a7a"
-  integrity sha512-xGZVAe61omKnVGedBdTbAveuJ5QyI0LrMIcp0hc1LmVI5IEjs5qG4fM0sv9GIBA2JVoKuf7332IjQX4y5qqMMQ==
+"@types/sinon@10.0.10":
+  version "10.0.10"
+  resolved "https://registry.yarnpkg.com/@types/sinon/-/sinon-10.0.10.tgz#f8acd72fbc2e87c4679f3e2c1ab3530dff1ab6e2"
+  integrity sha512-US5E539UfeL2DiWALzCyk0c4zKh6sCv86V/0lpda/afMJJ0oEm2SrKgedH5optvFWstnJ8e1MNYhLmPhAy4rvQ==
   dependencies:
     "@sinonjs/fake-timers" "^7.1.0"
 
@@ -1690,6 +1690,14 @@
     "@typescript-eslint/typescript-estree" "5.10.2"
     eslint-scope "^5.1.1"
     eslint-utils "^3.0.0"
+
+"@typescript-eslint/visitor-keys@5.10.1":
+  version "5.10.1"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/visitor-keys/-/visitor-keys-5.10.1.tgz#29102de692f59d7d34ecc457ed59ab5fc558010b"
+  integrity sha512-NjQ0Xinhy9IL979tpoTRuLKxMc0zJC7QVSdeerXs2/QvOy2yRkzX5dRb10X5woNUdJgU8G3nYRDlI33sq1K4YQ==
+  dependencies:
+    "@typescript-eslint/types" "5.10.1"
+    eslint-visitor-keys "^3.0.0"
 
 "@typescript-eslint/visitor-keys@5.10.2":
   version "5.10.2"
