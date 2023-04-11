@@ -28,7 +28,7 @@
 		"@rollup/plugin-node-resolve": "14.1.0",
 		"@types/bent": "7.3.3",
 		"@types/node": "18.15.11",
-		"@types/ramda": "0.28.23",
+		"@types/ramda": "0.28.24",
 		"@types/sinon": "10.0.13",
 		"@typescript-eslint/eslint-plugin": "5.58.0",
 		"@typescript-eslint/parser": "5.58.0",
