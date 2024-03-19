@@ -24,6 +24,13 @@
 				"functional/no-return-void": "off",
 				"@typescript-eslint/no-explicit-any": "off"
 			}
+		},
+		{
+			"files": ["deploy.mjs"],
+			"rules": {
+				"no-undef": "off",
+				"functional/no-expression-statement": "off"
+			}
 		}
 	]
 }
