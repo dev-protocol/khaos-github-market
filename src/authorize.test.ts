@@ -1,42 +1,53 @@
 import test from 'ava'
 import { authorize } from './authorize'
+import Sinon from 'sinon'
+import * as bent from 'bent'
+
+const OK_NAME = '**NAME'
+const OK_OWNER = '**OWNER'
+const OK_SECRET = '**f9092'
+const stub = Sinon.stub(bent, 'default')
+stub.returns(async (_, body, header) => {
+	const { query } = body as any
+	return query.includes(OK_NAME) &&
+		query.includes(OK_OWNER) &&
+		header?.Authorization === `bearer ${OK_SECRET}`
+		? { data: { repository: { viewerPermission: 'ADMIN' } } }
+		: !query.includes(OK_NAME) || !query.includes(OK_OWNER)
+		? { data: { repository: undefined } }
+		: header?.Authorization !== `bearer ${OK_SECRET}`
+		? { data: { repository: { viewerPermission: 'FOO' } } }
+		: { errors: [{ message: 'error' }] }
+})
 
 test('Successful authentication.', async (t) => {
 	const res = await authorize({
-		message: 'Akira-Taniguchi/cloud_lib',
-		secret: 'f9092e92428595c3e852e2502a0f5e7b3e7c0e35',
+		message: `${OK_OWNER}/${OK_NAME}`,
+		secret: OK_SECRET,
 	} as any)
 	t.true(res)
 })
 
 test('If the user does not exist, the authentication fails.', async (t) => {
 	const res = await authorize({
-		message: 'user/cloud_lib',
-		secret: 'f9092e92428595c3e852e2502a0f5e7b3e7c0e35',
+		message: `foo/${OK_NAME}`,
+		secret: OK_SECRET,
 	} as any)
 	t.false(res)
 })
 
 test('If the repository does not exist, the authentication fails', async (t) => {
 	const res = await authorize({
-		message: 'Akira-Taniguchi/huubaa',
-		secret: 'f9092e92428595c3e852e2502a0f5e7b3e7c0e35',
+		message: `${OK_OWNER}/foo`,
+		secret: OK_SECRET,
 	} as any)
 	t.false(res)
 })
 
 test('If the pat does not exist, the authentication fails', async (t) => {
 	const res = await authorize({
-		message: 'Akira-Taniguchi/cloud_lib',
-		secret: '00000e92428595c3e852e2502a0f5e7b3e7c0CE5',
+		message: `${OK_OWNER}/${OK_NAME}`,
+		secret: 'foo',
 	} as any)
 	t.false(res)
-})
-
-test('Successful authentication.(organization repository)', async (t) => {
-	const res = await authorize({
-		message: 'dev-protocol/khaos',
-		secret: 'f9092e92428595c3e852e2502a0f5e7b3e7c0e35',
-	} as any)
-	t.true(res)
 })
