@@ -28,7 +28,7 @@
 		"@rollup/plugin-commonjs": "25.0.7",
 		"@rollup/plugin-node-resolve": "15.2.3",
 		"@types/bent": "7.3.8",
-		"@types/node": "20.12.3",
+		"@types/node": "20.12.4",
 		"@types/ramda": "0.29.12",
 		"@types/sinon": "17.0.3",
 		"@typescript-eslint/eslint-plugin": "7.5.0",
